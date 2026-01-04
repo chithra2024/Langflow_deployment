@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Langflow Chat Widget Demo</title>
+    <script
+        src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@v1.0.7/dist/build/static/js/bundle.min.js">
+    </script>
+    <script>
+        // Prompt for token on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            const token = prompt('Please enter your Langflow Bearer Token:');
+            if (token) {
+                const chatElement = document.querySelector('langflow-chat');
+                if (chatElement) {
+                    const headers = {
+                        "Authorization": `Bearer ${token}`,
+                        "X-DataStax-Current-Org": "8ab573f3-a707-41da-9d78-fec14fc40297",
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    };
+                    chatElement.setAttribute('additional_headers', JSON.stringify(headers));
+                }
+            } else {
+                alert('Token is required to use the chat widget.');
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Langflow Chat Widget</h1>
+    <langflow-chat
+        window_title="RAG Model 3"
+        flow_id="825f2512-36f2-42fe-8129-05090f23bcc1"
+        host_url="https://aws-us-east-2.langflow.datastax.com/lf/1f51a4fd-1bd4-4582-9285-1fe93a8b2a5b"
+        additional_headers='{"Authorization":"Bearer <ENTER_TOKEN>","X-DataStax-Current-Org":"8ab573f3-a707-41da-9d78-fec14fc40297","Content-Type":"application/json","Accept":"application/json"}'>
+    </langflow-chat>
+</body>
+</html>
